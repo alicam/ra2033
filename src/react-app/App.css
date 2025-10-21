@@ -26,6 +26,11 @@ body {
   font-family: 'Aleo', serif;
 }
 
+/* Apply brand color to H3 subheadings in the statement */
+.declaration-text h3 {
+  color: #16747D;
+}
+
 /* Brand color theme */
 .border-brand {
   border-color: #16747D !important;
