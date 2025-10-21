@@ -11,5 +11,33 @@
   "assets": {
     "directory": "./dist/client",
     "not_found_handling": "single-page-application"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ra2033-db",
+      "database_id": "d24b5894-e9d1-4e08-af93-d12664662b8b"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "RATE_LIMITER",
+        "class_name": "RateLimiter"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_classes": [
+        "RateLimiter"
+      ]
+    }
+  ],
+  "vars": {
+    "AWS_REGION": "ap-southeast-2",
+    "SES_FROM_EMAIL": "alister@alistercameron.com",
+    "SNS_PHONE_NUMBER": "+12065552851"
   }
 }

@@ -1,45 +1,44 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Additional app-specific styles */
+
+/* Background for body element */
+body {
+  background-image: url('./assets/ra2033_bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-.logo.cloudflare:hover {
-  filter: drop-shadow(0 0 2em #f6821faa);
+.prose {
+  max-width: 65ch;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.prose p {
+  margin-bottom: 1em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Apply Aleo font to declaration text */
+.declaration-text,
+.declaration-text h2,
+.declaration-text h3,
+.declaration-text p,
+.declaration-text li {
+  font-family: 'Aleo', serif;
 }
 
-.card {
-  padding: 2em;
+/* Brand color theme */
+.border-brand {
+  border-color: #16747D !important;
 }
 
-.read-the-docs {
-  color: #888;
+.bg-brand {
+  background-color: #16747D !important;
+}
+
+.bg-brand:hover:not(:disabled) {
+  background-color: #125D64 !important;
+}
+
+.focus\:ring-brand:focus {
+  --tw-ring-color: #16747D !important;
 }

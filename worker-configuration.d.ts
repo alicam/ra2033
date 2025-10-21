@@ -3,6 +3,14 @@
 // Runtime types generated with workerd@1.20250617.0 2025-10-08 nodejs_compat
 declare namespace Cloudflare {
 	interface Env {
+		DB: D1Database;
+		RATE_LIMITER: DurableObjectNamespace;
+		JWT_SECRET: string;
+		AWS_ACCESS_KEY_ID: string;
+		AWS_SECRET_ACCESS_KEY: string;
+		AWS_REGION: string;
+		SES_FROM_EMAIL: string;
+		SNS_PHONE_NUMBER: string;
 	}
 }
 interface Env extends Cloudflare.Env {}
