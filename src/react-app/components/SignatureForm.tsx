@@ -31,6 +31,13 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
     setLoading(true);
     setError(null);
 
+    // Validate that a proper address with addressId was selected
+    if (!formData.addressId) {
+      setError('Please select a valid address from the dropdown suggestions');
+      setLoading(false);
+      return;
+    }
+
     try {
       // First, check if email or mobile already exists
       const checkResponse = await fetch('/api/signatures/check', {
@@ -117,7 +124,7 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
             placeholder="John Smith"
           />
         </div>
@@ -132,7 +139,7 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
             placeholder="john@example.com"
           />
         </div>
@@ -154,7 +161,7 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             minLength={10}
             maxLength={10}
             pattern="\d{10}"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
             placeholder="0412345678"
           />
           <p className="text-xs text-gray-500 mt-1">Australian mobile number (10 digits, e.g., 0412345678)</p>
@@ -162,11 +169,19 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
 
         <div>
           <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-            Address
+            Home Address <span className="text-red-500">*</span>
+            {formData.addressId && (
+              <span className="ml-2 text-green-600 text-xs">
+                ✓ Address verified
+              </span>
+            )}
           </label>
           <AddressAutocomplete
             value={formData.address}
+            required={true}
             onChange={async (value, addressId) => {
+              // If addressId is provided, it's a valid selection from dropdown
+              // If not provided (user is typing), clear the addressId
               setFormData({ ...formData, address: value, addressId: addressId || '' });
               
               // If we have an addressId, fetch the full verified details
@@ -240,28 +255,28 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
 
         <div>
           <label htmlFor="position" className="block text-sm font-medium text-gray-700 mb-1">
-            Position / Role
+            Position/Role (optional)
           </label>
           <input
             type="text"
             id="position"
             value={formData.position}
             onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
             placeholder="Senior Developer"
           />
         </div>
 
         <div>
           <label htmlFor="institution" className="block text-sm font-medium text-gray-700 mb-1">
-            Institution / Organization
+            Church/Organisation (optional)
           </label>
           <input
             type="text"
             id="institution"
             value={formData.institution}
             onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
             placeholder="Acme Corporation"
           />
         </div>
