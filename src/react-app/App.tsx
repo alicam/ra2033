@@ -139,6 +139,29 @@ function DeclarationPage() {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-8">
+        {/* Introduction */}
+        <section className="mb-8">
+          <p className="text-lg text-gray-700 font-medium leading-relaxed">
+            In July 2025, a representative group of leaders from across the Australian church met in Brisbane at the Australian Evangelism Roundtable. The following statement has been formally adopted by those Roundtable participants as an important and solemn expression of commitment to completing the Great Commission by Pentecost 2033.
+          </p>
+          <p className="text-lg text-gray-700 font-bold leading-relaxed mt-3">
+            You are invited to read the statement for yourself and prayerfully consider adding your signature, to express your commitment to proclaiming the gospel of Jesus Christ and making disciples.
+          </p>
+          <div className="mt-6">
+            <button
+              onClick={() => {
+                const formSection = document.querySelector('section:has(form)');
+                if (formSection) {
+                  formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className="bg-brand hover:bg-brand-dark text-white font-semibold py-3 px-8 rounded-lg shadow-md transition-colors duration-200"
+            >
+              Sign the Statement
+            </button>
+          </div>
+        </section>
+
         {/* The Declaration */}
         <section className="bg-white rounded-lg shadow-md p-8 mb-8">
           <div className="prose prose-lg max-w-none declaration-text">

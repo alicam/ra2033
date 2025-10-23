@@ -61,10 +61,10 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
       if (checkData.emailExists || checkData.mobileExists) {
         const errors = [];
         if (checkData.emailExists) {
-          errors.push('This email address has already been used to sign the declaration');
+          errors.push('This email address has already been used to sign the statement');
         }
         if (checkData.mobileExists) {
-          errors.push('This mobile number has already been used to sign the declaration');
+          errors.push('This mobile number has already been used to sign the statement');
         }
         throw new Error(errors.join('. '));
       }
@@ -107,9 +107,9 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Sign the Declaration</h2>
+      <h2 className="text-2xl font-bold mb-4">Sign the Statement</h2>
       <p className="text-gray-600 mb-6">
-        Add your signature to this public declaration. You'll need to verify your
+        Add your signature to this public statement. You'll need to verify your
         email and mobile number.
       </p>
 
@@ -250,7 +250,7 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             placeholder="Start typing your address..."
             disabled={loading}
           />
-          <p className="text-xs text-gray-500 mt-1">Start typing to search for your Australian address</p>
+          <p className="text-xs text-gray-500 mt-1">Start typing to search for your Australian residential address</p>
         </div>
 
         <div>
@@ -292,7 +292,7 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
           disabled={loading}
           className="w-full bg-brand text-white py-3 px-6 rounded-md font-medium disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
         >
-          {loading ? 'Submitting...' : 'Sign Declaration'}
+          {loading ? 'Submitting...' : 'Sign Statement'}
         </button>
       </form>
     </div>
