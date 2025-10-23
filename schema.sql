@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS public_signatures (
   phone_hash TEXT NOT NULL,
   position TEXT,
   institution TEXT,
+  address TEXT,
   email_verified INTEGER DEFAULT 0,
   phone_verified INTEGER DEFAULT 0,
   verification_completed_at DATETIME,

@@ -13,6 +13,7 @@ type Bindings = {
   AWS_REGION: string;
   SES_FROM_EMAIL: string;
   SNS_PHONE_NUMBER: string;
+  GEOSCAPE_API_KEY: string;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -207,7 +208,11 @@ app.post('/api/signatures', async (c) => {
     }
     
     // Validate input
-    const { name, email, mobile, position, institution } = body;
+    const { 
+      name, email, mobile, position, institution, address,
+      addressId, stateElec, fedElec,
+      latitude, longitude, sa1, lga, postcode, state
+    } = body;
     
     if (!name || !email || !mobile) {
       return c.json({ error: 'Missing required fields' }, 400);
@@ -242,10 +247,20 @@ app.post('/api/signatures', async (c) => {
     
     // Create signature record
     const signatureResult = await c.env.DB.prepare(
-      `INSERT INTO public_signatures (name, email_hash, phone_hash, position, institution, email_verified, phone_verified)
-       VALUES (?, ?, ?, ?, ?, 0, 0)`
+      `INSERT INTO public_signatures (
+        name, email_hash, phone_hash, position, institution, address,
+        address_id, stateElec, fedElec,
+        latitude, longitude, sa1, lga, postcode, state,
+        email_verified, phone_verified
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)`
     )
-      .bind(name, emailHash, phoneHash, position || null, institution || null)
+      .bind(
+        name, emailHash, phoneHash, 
+        position || null, institution || null, address || null,
+        addressId || null, stateElec || null, fedElec || null,
+        latitude || null, longitude || null, sa1 || null, lga || null,
+        postcode || null, state || null
+      )
       .run();
     
     const signatureId = signatureResult.meta.last_row_id;
@@ -837,6 +852,65 @@ app.get('/api/test/config', async (c) => {
     hasSecretAccessKey: !!c.env.AWS_SECRET_ACCESS_KEY,
     accessKeyIdLength: c.env.AWS_ACCESS_KEY_ID?.length || 0,
   });
+});
+
+// Address search proxy endpoints (Geoscape API)
+app.get('/api/address/search', async (c) => {
+  try {
+    const query = c.req.query('query');
+    
+    if (!query || query.length < 3) {
+      return c.json({ error: 'Query must be at least 3 characters' }, 400);
+    }
+    
+    // Call Geoscape API
+    const apiUrl = `https://api.psma.com.au/v1/predictive/address?query=${encodeURIComponent(query)}`;
+    const response = await fetch(apiUrl, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': c.env.GEOSCAPE_API_KEY,
+      },
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Geoscape API error:', response.status, errorText);
+      return c.json({ error: 'Address search failed' }, 500);
+    }
+    
+    const data = await response.json() as any;
+    return c.json(data);
+  } catch (error) {
+    console.error('Error searching addresses:', error);
+    return c.json({ error: 'Internal server error' }, 500);
+  }
+});
+
+app.get('/api/address/verify/:addressId', async (c) => {
+  try {
+    const addressId = c.req.param('addressId');
+    
+    // Call Geoscape API to get full address details
+    const apiUrl = `https://api.psma.com.au/v2/addresses/address/${addressId}?additionalProperties=all`;
+    const response = await fetch(apiUrl, {
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': c.env.GEOSCAPE_API_KEY,
+      },
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Geoscape verify API error:', response.status, errorText);
+      return c.json({ error: 'Address verification failed' }, 500);
+    }
+    
+    const data = await response.json() as any;
+    return c.json(data);
+  } catch (error) {
+    console.error('Error verifying address:', error);
+    return c.json({ error: 'Internal server error' }, 500);
+  }
 });
 
 // Serve static files from the React app (must be last)

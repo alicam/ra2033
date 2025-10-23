@@ -1,4 +1,5 @@
 import { useState, FormEvent } from 'react';
+import AddressAutocomplete from './AddressAutocomplete';
 
 interface SignatureFormProps {
   onSignatureSubmit: (data: { id: number; emailCode: string; smsCode: string }) => void;
@@ -11,6 +12,16 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
     mobile: '',
     position: '',
     institution: '',
+    address: '',
+    addressId: '',
+    stateElec: '',
+    fedElec: '',
+    latitude: null as number | null,
+    longitude: null as number | null,
+    sa1: '',
+    lga: '',
+    postcode: '',
+    state: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -147,6 +158,84 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             placeholder="0412345678"
           />
           <p className="text-xs text-gray-500 mt-1">Australian mobile number (10 digits, e.g., 0412345678)</p>
+        </div>
+
+        <div>
+          <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+            Address
+          </label>
+          <AddressAutocomplete
+            value={formData.address}
+            onChange={async (value, addressId) => {
+              setFormData({ ...formData, address: value, addressId: addressId || '' });
+              
+              // If we have an addressId, fetch the full verified details
+              if (addressId) {
+                try {
+                  const response = await fetch(`/api/address/verify/${addressId}`);
+                  if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Log the full response for debugging
+                    console.log('Verified Address Data:', data);
+                    
+                    // Extract addressId
+                    const verifiedAddressId = data.properties?.addressId || addressId;
+                    
+                    // Extract formattedAddress (overwrite the autocomplete suggestion)
+                    const formattedAddress = data.properties?.formattedAddress || value;
+                    
+                    // Extract electorates (only the names)
+                    const stateElec = data.properties?.stateElectorate?.stateElectoralName || '';
+                    const fedElec = data.properties?.commonwealthElectorate?.commElectoralName || '';
+                    
+                    // Extract coordinates (GeoJSON format: [longitude, latitude])
+                    const longitude = data.geometry?.coordinates?.[0] || null;
+                    const latitude = data.geometry?.coordinates?.[1] || null;
+                    
+                    // Extract SA1 from the latest census year
+                    let sa1 = '';
+                    if (data.properties?.asgsMain && Array.isArray(data.properties.asgsMain)) {
+                      // Find the entry with the highest census year
+                      const latestCensus = data.properties.asgsMain.reduce((latest: any, current: any) => {
+                        return (!latest || current.censusYear > latest.censusYear) ? current : latest;
+                      }, null);
+                      sa1 = latestCensus?.sa1Id || '';
+                    }
+                    
+                    // Extract LGA short name (may not be present)
+                    const lga = data.properties?.localGovernmentArea?.lgaShortName || '';
+                    
+                    // Extract postcode and state
+                    const postcode = data.properties?.postcode || '';
+                    const state = data.properties?.stateTerritory || '';
+                    
+                    // Update form data with all extracted fields
+                    setFormData(prev => ({
+                      ...prev,
+                      address: formattedAddress,
+                      addressId: verifiedAddressId,
+                      stateElec,
+                      fedElec,
+                      latitude,
+                      longitude,
+                      sa1,
+                      lga,
+                      postcode,
+                      state,
+                    }));
+                  } else {
+                    console.error('Failed to verify address:', response.statusText);
+                  }
+                } catch (error) {
+                  console.error('Error fetching verified address:', error);
+                }
+              }
+            }}
+            placeholder="Start typing your address..."
+            disabled={loading}
+          />
+          <p className="text-xs text-gray-500 mt-1">Start typing to search for your Australian address</p>
         </div>
 
         <div>
