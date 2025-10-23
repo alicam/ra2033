@@ -124,7 +124,7 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent bg-white"
             placeholder="John Smith"
           />
         </div>
@@ -139,8 +139,8 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
-            placeholder="john@example.com"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent bg-white"
+            placeholder="john@example.com.au"
           />
         </div>
 
@@ -161,7 +161,7 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             minLength={10}
             maxLength={10}
             pattern="\d{10}"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent bg-white"
             placeholder="0412345678"
           />
           <p className="text-xs text-gray-500 mt-1">Australian mobile number (10 digits, e.g., 0412345678)</p>
@@ -262,8 +262,8 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             id="position"
             value={formData.position}
             onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
-            placeholder="Senior Developer"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent bg-white"
+            placeholder="Senior Pastor"
           />
         </div>
 
@@ -276,8 +276,8 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
             id="institution"
             value={formData.institution}
             onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent"
-            placeholder="Acme Corporation"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-brand focus:border-transparent bg-white"
+            placeholder="Smith Street Church"
           />
         </div>
 

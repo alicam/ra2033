@@ -129,7 +129,7 @@ export default function AddressAutocomplete({
         placeholder={placeholder}
         disabled={disabled}
         required={required}
-        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
         aria-autocomplete="list"
         aria-controls="address-suggestions"
         aria-expanded={showSuggestions && suggestions.length > 0}

@@ -275,7 +275,7 @@ function DeclarationPage() {
         </section>
 
         {/* Sign Form or Verification */}
-        <section className="bg-white rounded-lg shadow-md p-8 mb-8">
+        <section className="rounded-lg shadow-md p-8 mb-8" style={{ backgroundColor: '#F0F5FB' }}>
           {pendingVerification ? (
             <VerificationForm
               signatureId={pendingVerification.id}

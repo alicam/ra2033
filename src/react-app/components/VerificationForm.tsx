@@ -92,7 +92,7 @@ export default function VerificationForm({
             maxLength={6}
             value={emailCode}
             onChange={(e) => setEmailCode(e.target.value.replace(/\D/g, ''))}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent text-center text-2xl tracking-widest"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent text-center text-2xl tracking-widest bg-white"
             placeholder="000000"
           />
         </div>
@@ -108,7 +108,7 @@ export default function VerificationForm({
             maxLength={6}
             value={smsCode}
             onChange={(e) => setSmsCode(e.target.value.replace(/\D/g, ''))}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent text-center text-2xl tracking-widest"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent text-center text-2xl tracking-widest bg-white"
             placeholder="000000"
           />
         </div>
