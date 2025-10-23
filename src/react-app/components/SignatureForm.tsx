@@ -6,6 +6,7 @@ interface SignatureFormProps {
 }
 
 export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps) {
+  const [showFinePrint, setShowFinePrint] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -108,10 +109,43 @@ export default function SignatureForm({ onSignatureSubmit }: SignatureFormProps)
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Sign the Statement</h2>
-      <p className="text-gray-600 mb-6">
+      <p className="text-gray-600 mb-4">
         Add your signature to this public statement. You'll need to verify your
         email and mobile number.
       </p>
+
+      <div className="mb-6">
+        <button
+          type="button"
+          onClick={() => setShowFinePrint(!showFinePrint)}
+          className="text-brand flex items-center gap-2 text-sm"
+        >
+          {showFinePrint ? (
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="3" stroke="#16747D" strokeWidth="2.5" fill="none"/>
+              <line x1="7" y1="12" x2="17" y2="12" stroke="#16747D" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+          ) : (
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="3" stroke="#16747D" strokeWidth="2.5" fill="none"/>
+              <line x1="12" y1="7" x2="12" y2="17" stroke="#16747D" strokeWidth="2.5" strokeLinecap="round"/>
+              <line x1="7" y1="12" x2="17" y2="12" stroke="#16747D" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+          )}
+          <span>{showFinePrint ? 'Hide' : 'Read'} the fine print</span>
+        </button>
+        
+        {showFinePrint && (
+          <div className="mt-3 text-sm text-gray-600 space-y-2">
+            <p>
+              To dissuade spammers and protect the integrity of this statement, we are asking for your email address and Australian mobile number. A verification code will be sent to each one, and you will be asked to provide those codes to verify your identity. We are also asking for your Australian residential address, in order to label your signature with your suburb/town, and in order to measure the effective spread of this campaign.
+            </p>
+            <p>
+              Your private information is safe with us, and will not be shared or sold. We will never communicate with you by mobile without your prior permission. Any email communication you receive from us will include an opt-out facility.
+            </p>
+          </div>
+        )}
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

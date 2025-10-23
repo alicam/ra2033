@@ -47,3 +47,11 @@ body {
 .focus\:ring-brand:focus {
   --tw-ring-color: #16747D !important;
 }
+
+.text-brand {
+  color: #16747D !important;
+}
+
+.text-brand:hover {
+  color: #125D64 !important;
+}
