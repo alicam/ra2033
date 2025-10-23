@@ -237,11 +237,7 @@ function DeclarationPage() {
             <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">Scriptural Foundation</h3>
             
             <p className="text-lg text-gray-700 leading-relaxed mb-6">
-              Psalms 51:12; 133; Proverbs 24:11–12; Ezekiel 33:7–9; Matthew 28:18–20;
-              Mark 16:15; Luke 24:46–47; John 3:16; 6:68; 9:4; 17:20-21; Acts 1:8; Romans
-              1:16; 3:23–24; 5:8; 6:23; 10:14–16; 1 Corinthians 1:10; 9:22; 15:3–4; 2
-              Corinthians 6:2; Philippians 1:27; 2:15–16; Ephesians 2:8–9; 4:3; 1 Peter 3:15;
-              Jude 2.
+              <span className="whitespace-nowrap">Psalms 51:12;</span> <span className="whitespace-nowrap">133;</span> <span className="whitespace-nowrap">Proverbs 24:11–12;</span> <span className="whitespace-nowrap">Ezekiel 33:7–9;</span> <span className="whitespace-nowrap">Matthew 28:18–20;</span> <span className="whitespace-nowrap">Mark 16:15;</span> <span className="whitespace-nowrap">Luke 24:46–47;</span> <span className="whitespace-nowrap">John 3:16;</span> <span className="whitespace-nowrap">6:68;</span> <span className="whitespace-nowrap">9:4;</span> <span className="whitespace-nowrap">17:20-21;</span> <span className="whitespace-nowrap">Acts 1:8;</span> <span className="whitespace-nowrap">Romans 1:16;</span> <span className="whitespace-nowrap">3:23–24;</span> <span className="whitespace-nowrap">5:8;</span> <span className="whitespace-nowrap">6:23;</span> <span className="whitespace-nowrap">10:14–16;</span> <span className="whitespace-nowrap">1 Corinthians 1:10;</span> <span className="whitespace-nowrap">9:22;</span> <span className="whitespace-nowrap">15:3–4;</span> <span className="whitespace-nowrap">2 Corinthians 6:2;</span> <span className="whitespace-nowrap">Philippians 1:27;</span> <span className="whitespace-nowrap">2:15–16;</span> <span className="whitespace-nowrap">Ephesians 2:8–9;</span> <span className="whitespace-nowrap">4:3;</span> <span className="whitespace-nowrap">1 Peter 3:15;</span> <span className="whitespace-nowrap">Jude 2.</span>
             </p>
             
             <p className="text-sm text-gray-600 italic leading-relaxed">
